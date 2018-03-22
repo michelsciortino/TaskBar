@@ -3,14 +3,17 @@ using System.Windows.Input;
 
 namespace AppBar.ViewModels
 {
-	public class RelayCommand : ICommand
+	/// <summary>
+	/// A basic command that runs an Action
+	/// </summary>
+	public class RelayParameterizedCommand : ICommand
 	{
 		#region Private Members
 
 		/// <summary>
 		/// The action to run
 		/// </summary>
-		private Action _action;
+		private Action<object> _action;
 
 		#endregion
 
@@ -28,7 +31,7 @@ namespace AppBar.ViewModels
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public RelayCommand(Action action)
+		public RelayParameterizedCommand(Action<object> action)
 		{
 			_action = action;
 		}
@@ -53,7 +56,7 @@ namespace AppBar.ViewModels
 		/// <param name="parameter"></param>
 		public void Execute(object parameter)
 		{
-			_action();
+			_action(parameter);
 		}
 
 		#endregion
