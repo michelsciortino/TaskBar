@@ -8,6 +8,7 @@
 
     <Style TargetType="{x:Type ContextMenu}">
         <Setter Property="Background" Value="{StaticResource DefaultMenuBackgroundColorBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DefaultBorderColorBrush}"/>
         <Setter Property="SnapsToDevicePixels"
           Value="True" />
         <Setter Property="OverridesDefaultStyle"
@@ -25,11 +26,13 @@
                             BorderThickness="1">
                         <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
                     </Border>
+                    <!--
                     <ControlTemplate.Triggers>
                         <Trigger Property="HasDropShadow" Value="true">
                             <Setter TargetName="Border" Property="Padding" Value="1,3,1,3" />
                         </Trigger>
                     </ControlTemplate.Triggers>
+                    -->
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -77,8 +80,17 @@
                             </Grid>
 
                             <!-- The Popup is the body of the menu which expands down or across depending on the level of the item -->
-                            <Popup IsOpen="{Binding Path=IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}" Placement="Right" x:Name="SubMenuPopup" Focusable="false" PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}">
-                                <Border x:Name="SubMenuBorder" BorderBrush="{StaticResource DefaultBorderColorBrush}" BorderThickness="1" Padding="0">
+                            <Popup x:Name="SubMenuPopup" 
+                                   AllowsTransparency="True"      
+                                   Placement="Right"
+                                   Focusable="false"
+                                   IsOpen="{Binding Path=IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                   PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}">
+                                <Border x:Name="SubMenuBorder"
+                                        BorderBrush="{StaticResource DefaultBorderColorBrush}"
+                                        Background="{StaticResource DefaultBorderColorBrush}"
+                                        BorderThickness="1"
+                                        Padding="1">
                                     <Grid x:Name="SubMenu" Grid.IsSharedSizeScope="True">
                                         <!-- StackPanel holds children of the menu. This is set by IsItemsHost=True -->
                                         <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle"/>
@@ -109,13 +121,13 @@
                         <!-- Role = SubMenuHeader : this is a child menu item which does not have children -->
                         <Trigger Property="Role" Value="SubmenuHeader">
                             <Setter Property="DockPanel.Dock" Value="Top"/>
-                            <Setter Property="Padding" Value="0,2,0,2"/>
+                            <Setter Property="Padding" Value="2"/>
                         </Trigger>
 
                         <!-- Role = SubMenuItem : this is a child menu item which has children-->
                         <Trigger Property="Role" Value="SubmenuItem">
                             <Setter Property="DockPanel.Dock" Value="Top"/>
-                            <Setter Property="Padding" Value="0,2,0,2"/>
+                            <Setter Property="Padding" Value="2"/>
                             <Setter Property="Visibility" Value="Collapsed" TargetName="ArrowPanel"/>
                         </Trigger>
                         <Trigger Property="IsSuspendingPopupAnimation" Value="true">
@@ -153,7 +165,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Separator}">
-                    <Border BorderBrush="DarkGray" BorderThickness="0.3" Margin="5,0"/>
+                    <Border BorderBrush="DarkGray" BorderThickness="0.5" Margin="5,0"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

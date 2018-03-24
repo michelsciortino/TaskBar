@@ -12,6 +12,8 @@
         </MenuItem>
         <Separator/>
         <MenuItem Header="Settings"/>
+        <Separator/>
+        <MenuItem Header="Exit"/>
     </ContextMenu>
     
   
