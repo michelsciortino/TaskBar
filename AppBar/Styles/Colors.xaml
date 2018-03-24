@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:AppBar.Styles">
+
+    <Color x:Key="DefaultBorderColor">#00000000</Color>
+    <SolidColorBrush x:Key="DefaultBorderColorBrush" Color="{StaticResource DefaultBorderColor}"/>
+
+    <Color x:Key="DefaultBarBackgroundColor">#80000000</Color>
+    <SolidColorBrush x:Key="DefaultBarBackgroundColorBrush" Color="{StaticResource DefaultBarBackgroundColor}"/>
+
+    <Color x:Key="DefaultMenuBackgroundColor">#ffffffff</Color>
+    <SolidColorBrush x:Key="DefaultMenuBackgroundColorBrush" Color="{StaticResource DefaultMenuBackgroundColor}"/>
+
+
+</ResourceDictionary>
+    
+    

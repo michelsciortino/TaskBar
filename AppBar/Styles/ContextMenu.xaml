@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:AppBar.Styles"
+                    xmlns:h="clr-namespace:AppBar.Helpers">
+
+    <ContextMenu x:Key="BarContextMenu">
+        <MenuItem Header="Location" >
+            <MenuItem Header="LEFT" Command="{Binding BarChangeLocationCommand}" CommandParameter="{x:Static h:WindowLocation.LEFT}" BorderThickness="0"/>
+            <MenuItem Header="TOP" Command="{Binding BarChangeLocationCommand}" CommandParameter="{x:Static h:WindowLocation.TOP}" BorderThickness="0"/>
+            <MenuItem Header="RIGHT" Command="{Binding BarChangeLocationCommand}" CommandParameter="{x:Static h:WindowLocation.RIGHT}" BorderThickness="0"/>
+            <MenuItem Header="BOTTOM" Command="{Binding BarChangeLocationCommand}" CommandParameter="{x:Static h:WindowLocation.BOTTOM}" BorderThickness="0"/>
+        </MenuItem>
+        <Separator/>
+        <MenuItem Header="Settings"/>
+    </ContextMenu>
+    
+  
+</ResourceDictionary>
