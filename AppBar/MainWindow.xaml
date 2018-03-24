@@ -4,23 +4,49 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:vm="clr-namespace:AppBar.ViewModels"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" 
+
         xmlns:local="clr-namespace:AppBar"
+        ResizeMode="NoResize"
         mc:Ignorable="d"
 		WindowStyle="None"
 		AllowsTransparency="True"
         Title="AppBar"
-		MinHeight="{Binding Path=MinHeight}" MinWidth="{Binding Path=MinWidth}"
-		Height="{Binding Path=Height}" Width="{Binding Path=Width}">
+        Top="{Binding YPosition, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+        Left="{Binding XPosition, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+        MaxHeight="{Binding BarHeight, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+        Height="{Binding BarHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        Width="{Binding BarWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        Background="Transparent"
+        WindowState="{Binding Path=BarWindowState}">
 
-	<Window.DataContext>
-		<vm:MainWindowViewModel/>
-	</Window.DataContext>
-
-	<Border Background="{Binding Path=BackgroundColor}"
-			BorderBrush="{Binding Path=BorderColor}"
-			BorderThickness="{Binding Path=BorderSize}"
-			Padding="{Binding Path=ContentPadding}">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
 
 
-	</Border>
+    <Border  HorizontalAlignment="Center" VerticalAlignment="Center"
+             MinHeight="{Binding BarMinHeight, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+             MinWidth="{Binding BarMinWidth, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+             Width="{Binding BarWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+             Height="{Binding BarHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+             BorderThickness="{Binding BorderThickness, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+             Padding="{Binding Path=ContentPadding, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+             BorderBrush="{Binding Path=BorderColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+             Background="{Binding Path=BackgroundColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+        <ListView Background="Red" ContextMenu="{StaticResource BarContextMenu}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <command:EventToCommand Command="{Binding BarMouseLeftButtonDownCommand}" PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="MouseRightButtonDown">
+                    <command:EventToCommand Command="{Binding BarMouseRighttButtonDownCommand}" PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListView>
+
+
+    </Border>
 </Window>
