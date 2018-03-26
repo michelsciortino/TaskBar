@@ -2,16 +2,26 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:AppBar.Styles">
 
-    <Color x:Key="DefaultBorderColor">#00000000</Color>
-    <SolidColorBrush x:Key="DefaultBorderColorBrush" Color="{StaticResource DefaultBorderColor}"/>
+    <!-- Default AppBar colors -->    
+        <Color x:Key="DefaultBorderColor">#00000000</Color>
+        <SolidColorBrush x:Key="DefaultBorderColorBrush" Color="{StaticResource DefaultBorderColor}"/>
 
-    <Color x:Key="DefaultBarBackgroundColor">#80000000</Color>
-    <SolidColorBrush x:Key="DefaultBarBackgroundColorBrush" Color="{StaticResource DefaultBarBackgroundColor}"/>
+        <Color x:Key="DefaultBarBackgroundColor">#80000000</Color>
+        <SolidColorBrush x:Key="DefaultBarBackgroundColorBrush" Color="{StaticResource DefaultBarBackgroundColor}"/>
+    
 
-    <Color x:Key="DefaultMenuBackgroundColor">#ffffffff</Color>
-    <SolidColorBrush x:Key="DefaultMenuBackgroundColorBrush" Color="{StaticResource DefaultMenuBackgroundColor}"/>
+    <!-- Default Menu Colors-->
+        <Color x:Key="DefaultMenuBackgroundColor">#ffffffff</Color>
+        <SolidColorBrush x:Key="DefaultMenuBackgroundColorBrush" Color="{StaticResource DefaultMenuBackgroundColor}"/>
+
+    
+    <!-- Icon Colors -->
+        <Color x:Key="HighLightIconColor">#28ffffff</Color>
+        <SolidColorBrush x:Key="HighLightIconColorBrush" Color="{StaticResource HighLightIconColor}"/>
+    
+    <!-- Accent Color -->
+        <Color x:Key="AccentColor">#f030a0f0</Color>
+        <SolidColorBrush x:Key="AccentColorBrush" Color="{StaticResource AccentColor}"/> 
 
 
 </ResourceDictionary>
-    
-    
