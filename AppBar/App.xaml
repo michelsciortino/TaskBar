@@ -8,10 +8,10 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/MenuItemStyle.xaml"/>
-                <ResourceDictionary Source="/Styles/ContextMenu.xaml"/>
+                <ResourceDictionary Source="/Styles/ContextMenu.Xaml"/>
                 <ResourceDictionary Source="/Styles/Colors.xaml"/>
                 <ResourceDictionary Source="/Styles/BarIcons.xaml"/>
-                <ResourceDictionary Source="/Styles/BarItemsContainer.xaml"/>
+                <!--ResourceDictionary Source="/Styles/BarItemsContainer.xaml"/-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
