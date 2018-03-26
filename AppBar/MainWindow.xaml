@@ -4,49 +4,81 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:vm="clr-namespace:AppBar.ViewModels"
+        xmlns:ctrl="clr-namespace:AppBar.Controls"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:command="http://www.galasoft.ch/mvvmlight"
-        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" 
-
+        xmlns:dm="clr-namespace:AppBar.ViewModels.Design"
         xmlns:local="clr-namespace:AppBar"
+        
+        Topmost="{Binding IsOnTop,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
         ResizeMode="NoResize"
-        mc:Ignorable="d"
+        mc:Ignorable="d"        
 		WindowStyle="None"
 		AllowsTransparency="True"
         Title="AppBar"
         Top="{Binding YPosition, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
         Left="{Binding XPosition, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-        MaxHeight="{Binding BarHeight, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-        Height="{Binding BarHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-        Width="{Binding BarWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        Height="0"
+        Width="0"
+        SizeToContent="WidthAndHeight"
+        Padding="0"
+        Margin="0"
+        BorderThickness="0"
         Background="Transparent"
-        WindowState="{Binding Path=BarWindowState}">
-
+        WindowState="{Binding Path=BarWindowState}"
+        ContextMenu="{StaticResource BarContextMenu}">
+    <!--
+        MaxHeight="{Binding BarHeight, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+        Width="{Binding BarWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        Height="{Binding BarHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        Padding="{Binding Path=ContentPadding, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+    -->
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="SizeChanged">
+            <command:EventToCommand Command="{Binding SizeChangedCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
 
+        <i:EventTrigger EventName="Loaded">
+            <command:EventToCommand Command="{Binding OnLoadedCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Border  HorizontalAlignment="Center" VerticalAlignment="Center"
              MinHeight="{Binding BarMinHeight, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-             MinWidth="{Binding BarMinWidth, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-             Width="{Binding BarWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-             Height="{Binding BarHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+             MinWidth="{Binding BarMinWidth, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"             
              BorderThickness="{Binding BorderThickness, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-             Padding="{Binding Path=ContentPadding, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+             Padding="10,0"
              BorderBrush="{Binding Path=BorderColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
              Background="{Binding Path=BackgroundColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-        <ListView Background="Red" ContextMenu="{StaticResource BarContextMenu}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <command:EventToCommand Command="{Binding BarMouseLeftButtonDownCommand}" PassEventArgsToCommand="True"/>
-                </i:EventTrigger>
-                <i:EventTrigger EventName="MouseRightButtonDown">
-                    <command:EventToCommand Command="{Binding BarMouseRighttButtonDownCommand}" PassEventArgsToCommand="True"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </ListView>
+        <!-- Mouse Events -->
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="MouseLeftButtonDown">
+                <command:EventToCommand Command="{Binding BarMouseLeftButtonDownCommand}" PassEventArgsToCommand="True"/>
+            </i:EventTrigger>
+            <i:EventTrigger EventName="MouseRightButtonDown">
+                <command:EventToCommand Command="{Binding BarMouseRighttButtonDownCommand}" PassEventArgsToCommand="True"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
 
-
+        <ItemsControl d:DataContext="{x:Static dm:ItemListDesignModel.Instance}"
+            ItemsSource="{Binding Items}"
+                      Padding="0"
+                      Margin="0">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="{Binding BarOrientation, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ctrl:ItemControl />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Border>
 </Window>
