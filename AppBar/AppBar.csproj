@@ -82,7 +82,6 @@
     <Compile Include="Controls\ItemListControl.xaml.cs">
       <DependentUpon>ItemListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\IconExtractor.cs" />
     <Compile Include="Helpers\Serializer.cs" />
     <Compile Include="Helpers\WindowHelpers.cs" />
     <Compile Include="Models\Config.cs" />
