@@ -169,5 +169,11 @@
     <Resource Include="Images\Unknown_32x32.png" />
     <Resource Include="Images\Unknown_44x44.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IconExtractor\IconExtractor.csproj">
+      <Project>{fdfd4eeb-c202-4d93-a6e9-d8984a12d014}</Project>
+      <Name>IconExtractor</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
