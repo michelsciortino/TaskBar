@@ -13,6 +13,15 @@ namespace AppBar.Models
     [Serializable]
     public class Config
     {
+        #region Static Instances
+
+        /// <summary>
+        /// Configuration Instance for the current AppBar instance
+        /// </summary>
+        public static Config Instance = null;
+
+        #endregion
+
         #region Public Properties
         /// <summary>
         /// List of programs saved in the configuration
@@ -69,11 +78,11 @@ namespace AppBar.Models
         /// <param name="config">Configuration to be saved</param>
         /// <param name="filename">Path + filename of configuration file</param>
         /// <returns>True if Serialization succeeded : False otherwise</returns>
-        public static bool SaveConfiguration(Config config,string filename)
+        public static bool SaveConfiguration(string filename)
         {
             try
             {
-                Helpers.Serializer.SerializeObj<Config>(config, filename);
+                Helpers.Serializer.SerializeObj<Config>(Instance, filename);
             }
             catch
             {
@@ -82,6 +91,14 @@ namespace AppBar.Models
             return true;
         }
 
+        /// <summary>
+        /// Loads an Empty Configuration
+        /// </summary>
+        public static void LoadDefaultConfiguration()
+        {
+            Instance = new Config(null, null);
+        }
+        
         #endregion
     }
 }
