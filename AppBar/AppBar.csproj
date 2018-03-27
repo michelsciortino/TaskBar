@@ -83,7 +83,9 @@
       <DependentUpon>ItemListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\IconExtractor.cs" />
+    <Compile Include="Helpers\Serializer.cs" />
     <Compile Include="Helpers\WindowHelpers.cs" />
+    <Compile Include="Models\Config.cs" />
     <Compile Include="Models\Program.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
