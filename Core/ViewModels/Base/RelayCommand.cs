@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace AppBar.ViewModels
+namespace AppBar.Core.ViewModels
 {
     public class RelayCommand<T> : ICommand
     {

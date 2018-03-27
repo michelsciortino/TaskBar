@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Media.Imaging;
+using AppBar.Core.Models;
 
 namespace AppBar.ViewModels.Design
 {
@@ -32,7 +33,7 @@ namespace AppBar.ViewModels.Design
                 new ItemViewModel
                 {
                     IsPinned=true,
-                    LinkedProgram = new Models.Program
+                    LinkedProgram = new Program
                     {
                         Name="notepad",
                         IsRunning=false,
@@ -46,7 +47,7 @@ namespace AppBar.ViewModels.Design
                 new ItemViewModel
                 {
                     IsPinned=true,
-                    LinkedProgram = new Models.Program
+                    LinkedProgram = new Program
                     {
                         Name="snippet tool",
                         IsRunning=false,
@@ -60,7 +61,7 @@ namespace AppBar.ViewModels.Design
                 new ItemViewModel
                 {
                     IsPinned=true,
-                    LinkedProgram = new Models.Program
+                    LinkedProgram = new Program
                     {
                         Name="paint",
                         IsRunning=false,
@@ -74,7 +75,7 @@ namespace AppBar.ViewModels.Design
                 new ItemViewModel
                 {
                     IsPinned=true,
-                    LinkedProgram = new Models.Program
+                    LinkedProgram = new Program
                     {
                         Name="explorer",
                         IsRunning=false,

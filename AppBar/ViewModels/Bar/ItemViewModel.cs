@@ -1,4 +1,5 @@
-﻿using AppBar.Models;
+﻿using AppBar.Core.Models;
+using AppBar.Core.ViewModels;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;

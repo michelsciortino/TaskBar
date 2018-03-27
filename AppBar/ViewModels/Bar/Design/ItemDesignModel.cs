@@ -1,5 +1,5 @@
 ﻿using System;
-using AppBar.Models;
+using AppBar.Core.Models;
 using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 

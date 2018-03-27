@@ -1,4 +1,4 @@
-﻿using AppBar.Models;
+﻿using AppBar.Core.Models;
 using AppBar.ViewModels;
 using System;
 using System.Collections.Generic;

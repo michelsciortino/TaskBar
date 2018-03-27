@@ -82,21 +82,11 @@
     <Compile Include="Controls\ItemListControl.xaml.cs">
       <DependentUpon>ItemListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\Serializer.cs" />
     <Compile Include="Helpers\WindowHelpers.cs" />
-    <Compile Include="Models\Config.cs" />
-    <Compile Include="Models\Program.cs" />
-    <Compile Include="ValueConverters\BaseValueConverter.cs" />
-    <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
     <Compile Include="ViewModels\Bar\Design\ItemListDesignModel.cs" />
     <Compile Include="ViewModels\Bar\Design\ItemDesignModel.cs" />
     <Compile Include="ViewModels\Bar\ItemListViewModel.cs" />
     <Compile Include="ViewModels\Bar\ItemViewModel.cs" />
-    <Compile Include="ViewModels\Base\BaseViewModel.cs" />
-    <Compile Include="ViewModels\Base\EventArgs.cs" />
-    <Compile Include="ViewModels\Base\EventRaiser.cs" />
-    <Compile Include="ViewModels\Base\RelayCommand.cs" />
-    <Compile Include="ViewModels\Base\RelayParameterizedCommand.cs" />
     <Compile Include="ViewModels\Window\MainWindowViewModel.cs" />
     <Page Include="Controls\ItemControl.xaml">
       <SubType>Designer</SubType>
@@ -169,6 +159,10 @@
     <Resource Include="Images\Unknown_44x44.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{f07cbd31-07e6-43fa-a2ec-e30996451d4d}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IconExtractor\IconExtractor.csproj">
       <Project>{fdfd4eeb-c202-4d93-a6e9-d8984a12d014}</Project>
       <Name>IconExtractor</Name>

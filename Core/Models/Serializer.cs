@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace AppBar.Helpers
+namespace AppBar.Core.Helpers
 {
     public static class Serializer
     {

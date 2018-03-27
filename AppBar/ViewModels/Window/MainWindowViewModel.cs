@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using AppBar.Helpers;
+using AppBar.Core.ViewModels;
 
 namespace AppBar.ViewModels
 {

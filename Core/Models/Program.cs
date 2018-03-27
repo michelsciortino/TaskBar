@@ -3,7 +3,7 @@ using System.Windows.Media.Imaging;
 using System.Diagnostics;
 using System;
 
-namespace AppBar.Models
+namespace AppBar.Core.Models
 {
     [Serializable]
     public class Program

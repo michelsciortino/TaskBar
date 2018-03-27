@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AppBar.Core.ViewModels;
 namespace AppBar.ViewModels
 {
     /// <summary>
