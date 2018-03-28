@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Media.Imaging;
+using AppBar.Core.Models;
 using IconExtractor;
 namespace AppBar.Helpers
 {
@@ -11,10 +12,7 @@ namespace AppBar.Helpers
     {
         #region Singletons
 
-        public static BitmapImage UnknownImageSource_16x16 = new BitmapImage(new Uri("/AppBar;component/Images/Unknown_16x16"));
-        public static BitmapImage UnknownImageSource_24x24 = new BitmapImage(new Uri("/AppBar;component/Images/Unknown_24x24"));
-        public static BitmapImage UnknownImageSource_32x32 = new BitmapImage(new Uri("/AppBar;component/Images/Unknown_32x32"));
-        public static BitmapImage UnknownImageSource_44x44= new BitmapImage(new Uri("/AppBar;component/Images/Unknown_44x44"));
+        
 
         #endregion
 
@@ -33,10 +31,10 @@ namespace AppBar.Helpers
             }
             catch
             {
-                images.Add(UnknownImageSource_16x16);
-                images.Add(UnknownImageSource_24x24);
-                images.Add(UnknownImageSource_32x32);
-                images.Add(UnknownImageSource_44x44);
+                images.Add(Config.UnknownImageSource_16x16);
+                images.Add(Config.UnknownImageSource_24x24);
+                images.Add(Config.UnknownImageSource_32x32);
+                images.Add(Config.UnknownImageSource_44x44);
                 return images;
             }
 

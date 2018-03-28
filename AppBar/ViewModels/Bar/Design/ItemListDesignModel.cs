@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using AppBar.Core.Models;
+using AppBar.Helpers;
 
 namespace AppBar.ViewModels.Design
 {
@@ -26,7 +27,6 @@ namespace AppBar.ViewModels.Design
         /// </summary>
         public ItemListDesignModel()
         {
-            Uri uri = new Uri("C:/Users/Michel/source/repos/AppBar/AppBar/Images/siren.png");
             //load design test data
             Items = new List<ItemViewModel>
             {
@@ -37,7 +37,7 @@ namespace AppBar.ViewModels.Design
                     {
                         Name="notepad",
                         IsRunning=false,
-                        Icon=new BitmapImage(uri),
+                        Icon=Config.UnknownImageSource_16x16,
                         ActiveProcesses=new List<System.Diagnostics.Process>(),
                         Path="notepad.exe",
                     },
@@ -51,7 +51,7 @@ namespace AppBar.ViewModels.Design
                     {
                         Name="snippet tool",
                         IsRunning=false,
-                        Icon=new BitmapImage(uri),
+                        Icon=Config.UnknownImageSource_16x16,
                         ActiveProcesses=new List<System.Diagnostics.Process>(),
                         Path="snippettool.exe",
                     },
@@ -65,7 +65,7 @@ namespace AppBar.ViewModels.Design
                     {
                         Name="paint",
                         IsRunning=false,
-                        Icon=new BitmapImage(uri),
+                        Icon=Config.UnknownImageSource_16x16,
                         ActiveProcesses=new List<System.Diagnostics.Process>(),
                         Path="paint.exe",
                     },
@@ -79,7 +79,7 @@ namespace AppBar.ViewModels.Design
                     {
                         Name="explorer",
                         IsRunning=false,
-                        Icon=new BitmapImage(uri),
+                        Icon=Config.UnknownImageSource_16x16,
                         ActiveProcesses=new List<System.Diagnostics.Process>(),
                         Path="explorer.exe",
                     },

@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
+
 namespace AppBar
 {
     /// <summary>
@@ -16,26 +17,18 @@ namespace AppBar
     /// </summary>
     public partial class App : Application
     {
-        /// <summary>
-        /// Default configuration filename
-        /// </summary>
-        private const string ConfigFilename= ".configuration";
+        public static Config Instance = null;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            string WorkingDirectoryPath=Assembly.GetExecutingAssembly().Location;
-
-            Config.ReadConfiguration(WorkingDirectoryPath + ConfigFilename);
+            Instance=Config.ReadConfiguration();
             
             MainWindow AppBar = new MainWindow();
 
             //Showing the main window
             AppBar.Show();
-
-            //Saving current configuration instance
-            Config.SaveConfiguration(WorkingDirectoryPath + ConfigFilename);
         }
 
     }

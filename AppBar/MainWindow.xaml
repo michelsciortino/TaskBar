@@ -63,7 +63,7 @@
             </i:EventTrigger>
         </i:Interaction.Triggers>
 
-        <ItemsControl d:DataContext="{x:Static dm:ItemListDesignModel.Instance}"
+        <ItemsControl
             ItemsSource="{Binding Items}"
                       Padding="0"
                       Margin="0">
