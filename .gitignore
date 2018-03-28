@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 /AppBar/Styles/BarItemsContainer.xaml
+.marker.tss
