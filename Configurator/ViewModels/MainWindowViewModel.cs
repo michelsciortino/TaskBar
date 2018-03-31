@@ -1,5 +1,5 @@
-﻿using AppBar.Core.Models;
-using AppBar.Core.ViewModels;
+﻿using TaskBar.Core.Models;
+using TaskBar.Core.ViewModels;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;

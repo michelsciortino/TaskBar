@@ -1,4 +1,4 @@
-﻿using AppBar.Core.Models;
+﻿using TaskBar.Core.Models;
 using System.Windows;
 
 namespace Configurator
