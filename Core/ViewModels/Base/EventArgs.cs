@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AppBar.Core.ViewModels
+namespace TaskBar.Core.ViewModels
 {
     public class EventArgs<T> : EventArgs
     {

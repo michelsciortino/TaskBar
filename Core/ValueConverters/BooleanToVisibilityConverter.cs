@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows;
 
-namespace AppBar.Core.ValueConverters
+namespace TaskBar.Core.ValueConverters
 {
     /// <summary>
     /// A converter that takes in a boolean and returns a <see cref="Visibility"/>

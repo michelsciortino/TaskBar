@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Windows.Media.Imaging;
+using TaskBar.Core.Helpers;
 
-namespace AppBar.Core.Models
+namespace TaskBar.Core.Models
 {
     /// <summary>
     /// AppBar Configuration
@@ -13,10 +13,10 @@ namespace AppBar.Core.Models
     {
         #region static variables
         
-        public static BitmapImage UnknownImageSource_24x24 = new BitmapImage(Helpers.UriHelper.GetUri(null, "Images/Unknown_24x24.png"));
-        public static BitmapImage UnknownImageSource_32x32 = new BitmapImage(Helpers.UriHelper.GetUri(null, "Images/Unknown_32x32.png"));
-        public static BitmapImage UnknownImageSource_44x44 = new BitmapImage(Helpers.UriHelper.GetUri(null, "Images/Unknown_44x44.png"));
-        public static BitmapImage UnknownImageSource_16x16 = new BitmapImage(Helpers.UriHelper.GetUri(null, "Images/Unknown_16x16.png"));
+        public static BitmapImage UnknownImageSource_24x24 = new BitmapImage(UriHelper.GetUri(null, "Images/Unknown_24x24.png"));
+        public static BitmapImage UnknownImageSource_32x32 = new BitmapImage(UriHelper.GetUri(null, "Images/Unknown_32x32.png"));
+        public static BitmapImage UnknownImageSource_44x44 = new BitmapImage(UriHelper.GetUri(null, "Images/Unknown_44x44.png"));
+        public static BitmapImage UnknownImageSource_16x16 = new BitmapImage(UriHelper.GetUri(null, "Images/Unknown_16x16.png"));
 
         /// <summary>
         /// Working directory of the program
@@ -29,6 +29,7 @@ namespace AppBar.Core.Models
         private const string ConfigFilename = ".configuration";
 
         #endregion
+
         #region Public Properties
 
             #region Theme
@@ -48,13 +49,14 @@ namespace AppBar.Core.Models
         #endregion
         #region Behaviors
         public bool OnTop;
-        public bool 
+        public bool Attached;
         #endregion
         #region PinnedItems
         /// <summary>
         /// List of programs saved in the configuration
         /// </summary>
         public List<Program> Programs;
+
         #endregion
         #region CustomIcons
         /// <summary>
@@ -139,17 +141,17 @@ namespace AppBar.Core.Models
         /// </summary>
         public static Config GetDefaultConfiguration()
         {
-            List<BitmapImage> list = new List<BitmapImage>();
-            list.Add(UnknownImageSource_16x16);
-            list.Add(UnknownImageSource_16x16);
-            list.Add(UnknownImageSource_16x16);
-            list.Add(UnknownImageSource_16x16);
+            List<BitmapImage> list = new List<BitmapImage>
+            {
+                UnknownImageSource_16x16,
+                UnknownImageSource_16x16,
+                UnknownImageSource_16x16,
+                UnknownImageSource_16x16
+            };
             return new Config(null, list);
         }
 
-        #endregion
-
-        
+        #endregion        
     }
 
     [Serializable]

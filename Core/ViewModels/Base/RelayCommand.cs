@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace AppBar.Core.ViewModels
+namespace TaskBar.Core.ViewModels
 {
     public class RelayCommand<T> : ICommand
     {
@@ -16,9 +16,7 @@ namespace AppBar.Core.ViewModels
 
         public RelayCommand(Action<T> execute, Predicate<T> canExecute)
         {
-            if (execute == null)
-                throw new ArgumentNullException("execute");
-            _execute = execute;
+            _execute = execute ?? throw new ArgumentNullException("execute");
             _canExecute = canExecute;
         }
 

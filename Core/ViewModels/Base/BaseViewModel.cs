@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace AppBar.Core.ViewModels
+namespace TaskBar.Core.ViewModels
 {
 	/// <summary>
 	/// A base view model that fires Property Changed events as needed
