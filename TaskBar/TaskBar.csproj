@@ -78,6 +78,7 @@
     <Compile Include="Controls\ItemListControl.xaml.cs">
       <DependentUpon>ItemListControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ColorsHelper.cs" />
     <Compile Include="Helpers\IconHelper.cs" />
     <Compile Include="Helpers\WindowHelpers\WindowHelpers.cs" />
     <Compile Include="ViewModels\Bar\Design\ItemDesignModel.cs" />

@@ -10,7 +10,7 @@
       xmlns:command="http://www.galasoft.ch/mvvmlight"
       xmlns:dm="clr-namespace:TaskBar.ViewModels.Design"
       xmlns:local="clr-namespace:TaskBar"      
-      
+      x:Name="TaskBar"
       Topmost="{Binding IsOnTop,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
       ResizeMode="NoResize"
       mc:Ignorable="d"        
@@ -25,7 +25,7 @@
       Padding="0"
       Margin="0"
       BorderThickness="0"
-      Background="Transparent"
+      Background="{Binding Path=BackgroundColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
       WindowState="{Binding Path=BarWindowState}"
       ContextMenu="{StaticResource BarContextMenu}">
     <!--
@@ -75,7 +75,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ctrl:ItemControl />
+                    <ctrl:ItemControl/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

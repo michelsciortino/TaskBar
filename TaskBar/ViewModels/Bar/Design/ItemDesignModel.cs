@@ -18,26 +18,25 @@ namespace TaskBar.ViewModels.Design
         /// </summary>
         public static ItemDesignModel Instance => new ItemDesignModel();
 
+        public Program Program { get; }
+
         #endregion
-        
+
         #region Constructor
-        
+
         /// <summary>
         /// A test constructor
         /// </summary>
-        public ItemDesignModel()
-        {
+        public ItemDesignModel(){
             IsPinned = true;
             LinkedProgram = new Program {
                 Name = "notepad",
-                IsRunning = false,
                 Icon = Config.UnknownImageSource_16x16,
-                ActiveProcesses = new List<System.Diagnostics.Process>(),
                 Path = "notepad.exe",
             };
             IconWidth = 32;
             IconHeight = 32;
-            IsOpened = false;
+            IsOpened = true;
         }
         
         #endregion        

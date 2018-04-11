@@ -30,62 +30,38 @@ namespace TaskBar.ViewModels.Design
             //load design test data
             Items = new List<ItemViewModel>
             {
-                new ItemViewModel
-                {
-                    IsPinned=true,
-                    LinkedProgram = new Program
+                new ItemViewModel(new Program
                     {
                         Name="notepad",
-                        IsRunning=false,
                         Icon=Config.UnknownImageSource_16x16,
-                        ActiveProcesses=new List<System.Diagnostics.Process>(),
                         Path="notepad.exe",
-                    },
-                    IconWidth = 16,
-                    IconHeight= 16
-                },
-                new ItemViewModel
-                {
-                    IsPinned=true,
-                    LinkedProgram = new Program
+                    },16,16,false,true),
+                new ItemViewModel(new Program
                     {
                         Name="snippet tool",
-                        IsRunning=false,
                         Icon=Config.UnknownImageSource_16x16,
-                        ActiveProcesses=new List<System.Diagnostics.Process>(),
                         Path="snippettool.exe",
                     },
-                    IconWidth = 16,
-                    IconHeight= 16
-                },
-                new ItemViewModel
-                {
-                    IsPinned=true,
-                    LinkedProgram = new Program
+                    16,
+                    16,false,true
+                ),
+                new ItemViewModel(
+                    new Program
                     {
                         Name="paint",
-                        IsRunning=false,
                         Icon=Config.UnknownImageSource_16x16,
-                        ActiveProcesses=new List<System.Diagnostics.Process>(),
                         Path="paint.exe",
                     },
-                    IconWidth = 16,
-                    IconHeight= 16
-                },
-                new ItemViewModel
-                {
-                    IsPinned=true,
-                    LinkedProgram = new Program
+                    16,
+                    16,false,true),
+                new ItemViewModel( new Program
                     {
                         Name="explorer",
-                        IsRunning=false,
                         Icon=Config.UnknownImageSource_16x16,
-                        ActiveProcesses=new List<System.Diagnostics.Process>(),
                         Path="explorer.exe",
                     },
-                    IconWidth = 16,
-                    IconHeight= 16
-                },
+                    16,
+                    16,false,true),
             };
         }
 

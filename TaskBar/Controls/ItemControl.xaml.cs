@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace TaskBar.Controls
 {
@@ -11,5 +13,15 @@ namespace TaskBar.Controls
         {
             InitializeComponent();
         }
+
+        /*public SolidColorBrush ActiveColor
+        {
+            get { return (SolidColorBrush)GetValue(ActiveColorProperty); }
+            set { SetValue(ActiveColorProperty, value); }
+        }*/
+
+        // Using a DependencyProperty as the backing store for ActiveColor.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ActiveColorProperty =
+            DependencyProperty.Register("ActiveColor", typeof(SolidColorBrush), typeof(ItemControl), new PropertyMetadata((SolidColorBrush)Brushes.Green));
     }
 }

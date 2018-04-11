@@ -3,6 +3,10 @@ using TaskBar.Core.ViewModels;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Diagnostics;
+using System.Collections.Generic;
+using System.Windows.Media;
+using TaskBar.Helpers;
 
 namespace TaskBar.ViewModels
 {
@@ -13,12 +17,33 @@ namespace TaskBar.ViewModels
     {
         #region Private Properties
 
+        public List<Process> ActiveProcesses;
         private double _iconWidth;
         private double _iconHeight;
         private bool _isPinned = false;
         private Program _linkedProgram;
         private bool _isOpened=false;
+        private SolidColorBrush _accentColor;
+        #endregion
 
+        #region Constructor
+        public ItemViewModel() { }
+        /// <summary>
+        /// Bar Item ViewModel Constructor
+        /// </summary>
+        /// <param name="isPinned">true if the item is pinned</param>
+        /// <param name="linkedProgram"></param>
+        /// <param name="iconWidth"></param>
+        /// <param name="iconHeight"></param>
+        public ItemViewModel(Program program,double iconWidth,double iconHeight,bool isOpened=false,bool isPinned =true)
+        {
+            LinkedProgram = program;
+            IconWidth = iconWidth;
+            IconHeight = iconHeight;
+            IsOpened = isOpened;
+            IsPinned = isPinned;
+            ActiveProcesses = new List<Process>();
+        }
         #endregion
 
         #region Public Properties
@@ -117,6 +142,19 @@ namespace TaskBar.ViewModels
                 }
             }
         }
+        
+        public SolidColorBrush AccentColor
+        {
+            get => _accentColor?? (_accentColor = new SolidColorBrush(ColorsHelper.ColorFromHex(App.Config.AccentColor)));
+            set
+            {
+                if (_accentColor != value)
+                {
+                    _accentColor = value;
+                    OnPropertyChanged(nameof(AccentColor));
+                }
+            }
+        }
 
         #endregion
 
@@ -137,22 +175,7 @@ namespace TaskBar.ViewModels
             }
         }
         #endregion
-        
-        #region Constructor
-
-        /// <summary>
-        /// Bar Item ViewModel Constructor
-        /// </summary>
-        /// <param name="isPinned">true if the item is pinned</param>
-        /// <param name="linkedProgram"></param>
-        /// <param name="iconWidth"></param>
-        /// <param name="iconHeight"></param>
-        public ItemViewModel()
-        {
-        }
-
-        #endregion
-        
+    
         #region Private Methods
 
         /// <summary>
@@ -166,7 +189,6 @@ namespace TaskBar.ViewModels
                 MessageBox.Show(LinkedProgram.Name, "Application launched", MessageBoxButton.OK);
         }
 
-        #endregion
-        
+        #endregion        
     }
 }

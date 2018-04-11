@@ -6,18 +6,136 @@ using System.Windows.Media;
 using TaskBar.Helpers;
 using TaskBar.Core.ViewModels;
 using TaskBar.Core;
+using TaskBar.Core.Models;
 
 namespace TaskBar.ViewModels
 {
     class MainWindowViewModel : BaseViewModel
     {
         #region Constructor
-
         public MainWindowViewModel(Window window)
         {
             this.window = window;
             BarLocation = WindowLocation.Float;
             isDocked = false;
+            if (App.Config.BackgroundAsSysColor)
+                BackgroundColor = new SolidColorBrush(ColorsHelper.ColorFromHex(Core.WinApi.NativeMethods.GetWindowColorizationColor(true)));
+            else
+                BackgroundColor = new SolidColorBrush(ColorsHelper.ColorFromHex(App.Config.BackgroundColor));
+            if (App.Config.AccentAsSysColor)
+                AccentColor = new SolidColorBrush(ColorsHelper.ColorFromHex(Core.WinApi.NativeMethods.GetWindowColorizationColor(true)));
+            else
+                AccentColor = new SolidColorBrush(ColorsHelper.ColorFromHex(App.Config.AccentColor));
+            BorderColor = new SolidColorBrush(ColorsHelper.ColorFromHex(App.Config.BorderColor));
+            List<ItemViewModel> test= new List<ItemViewModel>
+            {
+                new ItemViewModel(new Program
+                    {
+                        Name="notepad",
+                        Icon=Config.UnknownImageSource_16x16,
+                        Path="notepad.exe",
+                    },16,16,true,true),
+                new ItemViewModel(new Program
+                    {
+                        Name="snippet tool",                        
+                        Icon=Config.UnknownImageSource_16x16,
+                        Path="snippettool.exe",
+                    },
+                    16,
+                    16,false,true
+                ),
+                new ItemViewModel(
+                    new Program
+                    {
+                        Name="paint",
+                        Icon=Config.UnknownImageSource_16x16,
+                        Path="paint.exe",
+                    },
+                    16,
+                    16,false,true),
+                new ItemViewModel( new Program
+                    {
+                        Name="explorer",
+                        Icon=Config.UnknownImageSource_16x16,
+                        Path="explorer.exe",
+                    },
+                    16,
+                    16,true,true),
+                new ItemViewModel(new Program
+                    {
+                        Name="notepad",
+                        Icon=Config.UnknownImageSource_16x16,
+                        Path="notepad.exe",
+                    },16,16,true,true),
+                new ItemViewModel(new Program
+                    {
+                        Name="snippet tool",
+                        Icon=Config.UnknownImageSource_16x16,
+                        Path="snippettool.exe",
+                    },
+                    16,
+                    16,false,true
+                ),
+                new ItemViewModel(
+                    new Program
+                    {
+                        Name="paint",
+                        Icon=Config.UnknownImageSource_16x16,
+                        Path="paint.exe",
+                    },
+                    16,
+                    16,false,true),
+                new ItemViewModel( new Program
+                    {
+                        Name="explorer",
+                        Icon=Config.UnknownImageSource_16x16,
+                        Path="explorer.exe",
+                    },
+                    16,
+                    16,true,true),
+                new ItemViewModel(new Program
+                    {
+                        Name="notepad",
+                        Icon=Config.UnknownImageSource_16x16,
+                        Path="notepad.exe",
+                    },16,16,true,true),
+                new ItemViewModel(new Program
+                    {
+                        Name="snippet tool",
+                        Icon=Config.UnknownImageSource_16x16,
+                        Path="snippettool.exe",
+                    },
+                    16,
+                    16,false,true
+                ),
+                new ItemViewModel(
+                    new Program
+                    {
+                        Name="paint",
+                        Icon=Config.UnknownImageSource_16x16,
+                        Path="paint.exe",
+                    },
+                    16,
+                    16,false,true),
+                new ItemViewModel( new Program
+                    {
+                        Name="explorer",
+                        Icon=Config.UnknownImageSource_16x16,
+                        Path="explorer.exe",
+                    },
+                    16,
+                    16,true,true),
+            };
+            foreach (Program p in App.Config.Programs)
+            {
+                Items.Add(new ItemViewModel(p,App.Config.IconSize,App.Config.IconSize,false,true));
+            }
+
+            foreach(ItemViewModel i in test)
+            {
+                Items.Add(i);
+            }
+            
         }
 
         #endregion
@@ -32,13 +150,15 @@ namespace TaskBar.ViewModels
         #endregion
 
         #region Private Properties
-        private List<ItemViewModel> _items;
+
+        private List<ItemViewModel> _items = new List<ItemViewModel>();
         private double _yPosition =0;
         private double _xPosition = 0;
         private double _contentPadding = 0;
         private double _borderSize = 0;
-        private SolidColorBrush _borderColor = Application.Current.FindResource("DefaultBorderColorBrush") as SolidColorBrush;
-        private SolidColorBrush _backgroundColor = Application.Current.FindResource("DefaultBarBackgroundColorBrush") as SolidColorBrush;
+        private SolidColorBrush _borderColor;
+        private SolidColorBrush _backgroundColor;
+        private SolidColorBrush _accentColor;
         private double _barMinWidth = 16;
         private double _barMinHeight = 16;
         private double _barWidth = 150;
@@ -198,6 +318,10 @@ namespace TaskBar.ViewModels
             get => _backgroundColor;
             set
             {
+                Color bc = value.Color;
+                bc.A=(byte)App.Config.Transparency;
+                value.Color = bc;
+
                 if (value != _backgroundColor) {
                     _backgroundColor = value;
                     OnPropertyChanged(nameof(BackgroundColor));
@@ -216,6 +340,20 @@ namespace TaskBar.ViewModels
                 if (value != _borderColor) {
                     _borderColor = value;
                     OnPropertyChanged(nameof(BorderColor));
+                }
+            }
+        }
+
+        public SolidColorBrush AccentColor
+        {
+            get => _accentColor;
+            set
+            {
+                if (value != _accentColor)
+                {
+                    _accentColor = value;
+                    OnPropertyChanged(nameof(AccentColor));
+                    UpdateAccentColor();
                 }
             }
         }
@@ -623,6 +761,14 @@ namespace TaskBar.ViewModels
                 IsOnTop = false;
         }
         
+        private void UpdateAccentColor()
+        {
+            foreach(ItemViewModel vm in Items)
+            {
+                vm.AccentColor = AccentColor;
+            }
+        }
+
         #endregion
     }
 }

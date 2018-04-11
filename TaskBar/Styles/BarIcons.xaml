@@ -3,6 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
                     xmlns:command="http://www.galasoft.ch/mvvmlight"
+                    xmlns:ic="clr-namespace:TaskBar.Controls"
                     xmlns:conv="clr-namespace:TaskBar.Core.ValueConverters;assembly=Core">
 
     <!-- Icon Sizes -->
@@ -48,7 +49,7 @@
     <!-- Icon Button Style -->
     <Style x:Key="BarIconStyle" TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-        <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
         <Setter Property="BorderThickness" Value="1"/>
@@ -62,7 +63,7 @@
                     <Border x:Name="border"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="0"
-                                Background="{TemplateBinding Background}"
+                                Background="Transparent"
                                 SnapsToDevicePixels="true">
                         <Grid x:Name="Main" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <Grid.RowDefinitions>
@@ -84,6 +85,7 @@
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     Padding="10,6"
+                                    Background="Transparent"
                                     Margin="0">
 
                                 <ContentPresenter x:Name="contentPresenter"
@@ -95,7 +97,7 @@
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             </Border>
                             <Border Grid.Row="1" Visibility="{Binding IsOpened,Converter={conv:BooleanToVisiblityConverter},Mode=OneWay,UpdateSourceTrigger=PropertyChanged}">
-                                <Border x:Name="bottomLine" Margin="4,0"  Background="{StaticResource AccentColorBrush}"/>
+                                <Border x:Name="bottomLine" Margin="4,0"  Background="{Binding AccentColor, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                             </Border>
                             <!-- Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrush}}"/> -->
                         </Grid>
