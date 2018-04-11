@@ -68,7 +68,7 @@
                       Margin="0">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="{Binding BarOrientation, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    <StackPanel Orientation="{Binding Orientation, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center" IsItemsHost="True"/>
                 </ItemsPanelTemplate>

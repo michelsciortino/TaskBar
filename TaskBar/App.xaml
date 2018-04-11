@@ -9,7 +9,6 @@
                 <ResourceDictionary Source="Styles\Colors.xaml"/>
                 <ResourceDictionary Source="Styles\BarIcons.xaml"/>
                 <ResourceDictionary Source="Styles\ContextMenu.xaml"/>
-                <!--ResourceDictionary Source="/Styles/BarItemsContainer.xaml"/-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
   </Application.Resources>

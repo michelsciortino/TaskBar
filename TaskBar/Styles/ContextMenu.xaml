@@ -7,17 +7,17 @@
     <ContextMenu x:Key="BarContextMenu">
         <MenuItem Header="Options" >
             <MenuItem Header="Location">
-                <MenuItem Header="LEFT" Command="{Binding BarChangeLocationCommand}" CommandParameter="{x:Static h:WindowLocation.Left}"/>
-                <MenuItem Header="TOP" Command="{Binding BarChangeLocationCommand}" CommandParameter="{x:Static h:WindowLocation.Top}"/>
-                <MenuItem Header="RIGHT" Command="{Binding BarChangeLocationCommand}" CommandParameter="{x:Static h:WindowLocation.Right}"/>
-                <MenuItem Header="BOTTOM" Command="{Binding BarChangeLocationCommand}" CommandParameter="{x:Static h:WindowLocation.Bottom}"/>
+                <MenuItem Header="LEFT" Command="{Binding ChangeLocationCommand}" CommandParameter="{x:Static h:WindowLocation.Left}"/>
+                <MenuItem Header="TOP" Command="{Binding ChangeLocationCommand}" CommandParameter="{x:Static h:WindowLocation.Top}"/>
+                <MenuItem Header="RIGHT" Command="{Binding ChangeLocationCommand}" CommandParameter="{x:Static h:WindowLocation.Right}"/>
+                <MenuItem Header="BOTTOM" Command="{Binding ChangeLocationCommand}" CommandParameter="{x:Static h:WindowLocation.Bottom}"/>
             </MenuItem>
             <MenuItem Header="Orientation">
-                <MenuItem Header="Horizontal" Command="{Binding BarChangeOrientationCommand}" CommandParameter="{x:Static Orientation.Horizontal }"/>
-                <MenuItem Header="Vertical" Command="{Binding BarChangeOrientationCommand}" CommandParameter="{x:Static  Orientation.Vertical}"/>
+                <MenuItem Header="Horizontal" Command="{Binding ChangeOrientationCommand}" CommandParameter="{x:Static Orientation.Horizontal }"/>
+                <MenuItem Header="Vertical" Command="{Binding ChangeOrientationCommand}" CommandParameter="{x:Static  Orientation.Vertical}"/>
             </MenuItem>
-            <MenuItem Header="{Binding LockUnlockText}" Command="{Binding BarLockUnlockCommand}"/>
-            <MenuItem Header="{Binding DockUndockText}" Command="{Binding BarDockUndockCommand}" CommandParameter="{Binding DockUndockText}"/>
+            <MenuItem Header="{Binding LockUnlockText}" Command="{Binding LockUnlockCommand}"/>
+            <MenuItem Header="{Binding DockUndockText}" Command="{Binding DockUndockCommand}" CommandParameter="{Binding DockUndockText}"/>
             <CheckBox VerticalAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Content="Topmost" Padding="0" Margin="0" >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Checked">

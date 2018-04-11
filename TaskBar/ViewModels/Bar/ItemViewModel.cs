@@ -145,7 +145,7 @@ namespace TaskBar.ViewModels
         
         public SolidColorBrush AccentColor
         {
-            get => _accentColor?? (_accentColor = new SolidColorBrush(ColorsHelper.ColorFromHex(App.Config.AccentColor)));
+            get => _accentColor?? (_accentColor = new SolidColorBrush(ColorsHelper.ColorFromHex(App.Configuration.AccentColor)));
             set
             {
                 if (_accentColor != value)

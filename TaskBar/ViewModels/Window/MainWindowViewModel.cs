@@ -10,132 +10,144 @@ using TaskBar.Core.Models;
 
 namespace TaskBar.ViewModels
 {
+    /// <summary>
+    /// The TaskBar Main View Model
+    /// </summary>
     class MainWindowViewModel : BaseViewModel
     {
         #region Constructor
+
         public MainWindowViewModel(Window window)
         {
             this.window = window;
             BarLocation = WindowLocation.Float;
             isDocked = false;
-            if (App.Config.BackgroundAsSysColor)
+
+            if (App.Configuration.BackgroundAsSysColor)
                 BackgroundColor = new SolidColorBrush(ColorsHelper.ColorFromHex(Core.WinApi.NativeMethods.GetWindowColorizationColor(true)));
             else
-                BackgroundColor = new SolidColorBrush(ColorsHelper.ColorFromHex(App.Config.BackgroundColor));
-            if (App.Config.AccentAsSysColor)
+                BackgroundColor = new SolidColorBrush(ColorsHelper.ColorFromHex(App.Configuration.BackgroundColor));
+
+            if (App.Configuration.AccentAsSysColor)
                 AccentColor = new SolidColorBrush(ColorsHelper.ColorFromHex(Core.WinApi.NativeMethods.GetWindowColorizationColor(true)));
             else
-                AccentColor = new SolidColorBrush(ColorsHelper.ColorFromHex(App.Config.AccentColor));
-            BorderColor = new SolidColorBrush(ColorsHelper.ColorFromHex(App.Config.BorderColor));
-            List<ItemViewModel> test= new List<ItemViewModel>
+                AccentColor = new SolidColorBrush(ColorsHelper.ColorFromHex(App.Configuration.AccentColor));
+
+            BorderColor = new SolidColorBrush(ColorsHelper.ColorFromHex(App.Configuration.BorderColor));
+
+            foreach (Program p in App.Configuration.Programs)
             {
-                new ItemViewModel(new Program
-                    {
-                        Name="notepad",
-                        Icon=Config.UnknownImageSource_16x16,
-                        Path="notepad.exe",
-                    },16,16,true,true),
-                new ItemViewModel(new Program
-                    {
-                        Name="snippet tool",                        
-                        Icon=Config.UnknownImageSource_16x16,
-                        Path="snippettool.exe",
-                    },
-                    16,
-                    16,false,true
-                ),
-                new ItemViewModel(
-                    new Program
-                    {
-                        Name="paint",
-                        Icon=Config.UnknownImageSource_16x16,
-                        Path="paint.exe",
-                    },
-                    16,
-                    16,false,true),
-                new ItemViewModel( new Program
-                    {
-                        Name="explorer",
-                        Icon=Config.UnknownImageSource_16x16,
-                        Path="explorer.exe",
-                    },
-                    16,
-                    16,true,true),
-                new ItemViewModel(new Program
-                    {
-                        Name="notepad",
-                        Icon=Config.UnknownImageSource_16x16,
-                        Path="notepad.exe",
-                    },16,16,true,true),
-                new ItemViewModel(new Program
-                    {
-                        Name="snippet tool",
-                        Icon=Config.UnknownImageSource_16x16,
-                        Path="snippettool.exe",
-                    },
-                    16,
-                    16,false,true
-                ),
-                new ItemViewModel(
-                    new Program
-                    {
-                        Name="paint",
-                        Icon=Config.UnknownImageSource_16x16,
-                        Path="paint.exe",
-                    },
-                    16,
-                    16,false,true),
-                new ItemViewModel( new Program
-                    {
-                        Name="explorer",
-                        Icon=Config.UnknownImageSource_16x16,
-                        Path="explorer.exe",
-                    },
-                    16,
-                    16,true,true),
-                new ItemViewModel(new Program
-                    {
-                        Name="notepad",
-                        Icon=Config.UnknownImageSource_16x16,
-                        Path="notepad.exe",
-                    },16,16,true,true),
-                new ItemViewModel(new Program
-                    {
-                        Name="snippet tool",
-                        Icon=Config.UnknownImageSource_16x16,
-                        Path="snippettool.exe",
-                    },
-                    16,
-                    16,false,true
-                ),
-                new ItemViewModel(
-                    new Program
-                    {
-                        Name="paint",
-                        Icon=Config.UnknownImageSource_16x16,
-                        Path="paint.exe",
-                    },
-                    16,
-                    16,false,true),
-                new ItemViewModel( new Program
-                    {
-                        Name="explorer",
-                        Icon=Config.UnknownImageSource_16x16,
-                        Path="explorer.exe",
-                    },
-                    16,
-                    16,true,true),
-            };
-            foreach (Program p in App.Config.Programs)
-            {
-                Items.Add(new ItemViewModel(p,App.Config.IconSize,App.Config.IconSize,false,true));
+                Items.Add(new ItemViewModel(p, App.Configuration.IconSize, App.Configuration.IconSize, false, true));
             }
 
-            foreach(ItemViewModel i in test)
+            //Testing things... will be removed
             {
-                Items.Add(i);
+                    List<ItemViewModel> test = new List<ItemViewModel>
+                {
+                    new ItemViewModel(new Program
+                        {
+                            Name="notepad",
+                            Icon=Config.UnknownImageSource_16x16,
+                            Path="notepad.exe",
+                        },16,16,true,true),
+                    new ItemViewModel(new Program
+                        {
+                            Name="snippet tool",
+                            Icon=Config.UnknownImageSource_16x16,
+                            Path="snippettool.exe",
+                        },
+                        16,
+                        16,false,true
+                    ),
+                    new ItemViewModel(
+                        new Program
+                        {
+                            Name="paint",
+                            Icon=Config.UnknownImageSource_16x16,
+                            Path="paint.exe",
+                        },
+                        16,
+                        16,false,true),
+                    new ItemViewModel( new Program
+                        {
+                            Name="explorer",
+                            Icon=Config.UnknownImageSource_16x16,
+                            Path="explorer.exe",
+                        },
+                        16,
+                        16,true,true),
+                    new ItemViewModel(new Program
+                        {
+                            Name="notepad",
+                            Icon=Config.UnknownImageSource_16x16,
+                            Path="notepad.exe",
+                        },16,16,true,true),
+                    new ItemViewModel(new Program
+                        {
+                            Name="snippet tool",
+                            Icon=Config.UnknownImageSource_16x16,
+                            Path="snippettool.exe",
+                        },
+                        16,
+                        16,false,true
+                    ),
+                    new ItemViewModel(
+                        new Program
+                        {
+                            Name="paint",
+                            Icon=Config.UnknownImageSource_16x16,
+                            Path="paint.exe",
+                        },
+                        16,
+                        16,false,true),
+                    new ItemViewModel( new Program
+                        {
+                            Name="explorer",
+                            Icon=Config.UnknownImageSource_16x16,
+                            Path="explorer.exe",
+                        },
+                        16,
+                        16,true,true),
+                    new ItemViewModel(new Program
+                        {
+                            Name="notepad",
+                            Icon=Config.UnknownImageSource_16x16,
+                            Path="notepad.exe",
+                        },16,16,true,true),
+                    new ItemViewModel(new Program
+                        {
+                            Name="snippet tool",
+                            Icon=Config.UnknownImageSource_16x16,
+                            Path="snippettool.exe",
+                        },
+                        16,
+                        16,false,true
+                    ),
+                    new ItemViewModel(
+                        new Program
+                        {
+                            Name="paint",
+                            Icon=Config.UnknownImageSource_16x16,
+                            Path="paint.exe",
+                        },
+                        16,
+                        16,false,true),
+                    new ItemViewModel( new Program
+                        {
+                            Name="explorer",
+                            Icon=Config.UnknownImageSource_16x16,
+                            Path="explorer.exe",
+                        },
+                        16,
+                        16,true,true),
+                };
+
+                    foreach (ItemViewModel i in test)
+                    {
+                        Items.Add(i);
+                    }
             }
-            
+
         }
 
         #endregion
@@ -163,8 +175,7 @@ namespace TaskBar.ViewModels
         private double _barMinHeight = 16;
         private double _barWidth = 150;
         private double _barHeight = 32;
-        private WindowState _barWindowState;
-        private Orientation _barOrientation=Orientation.Horizontal;
+        private Orientation _orientation=Orientation.Horizontal;
         private bool _isLocked = false;
         private string _lockUnlockText="Lock"; 
         private string _dockUndockText = "Dock"; 
@@ -173,7 +184,9 @@ namespace TaskBar.ViewModels
         #endregion        
 
         #region Public Properties
-
+        /// <summary>
+        /// Vertical position of the Taskbar on the screen
+        /// </summary>
         public double YPosition
         {
             get => _yPosition;
@@ -187,6 +200,9 @@ namespace TaskBar.ViewModels
             }
         }
 
+        /// <summary>
+        /// Horizontal position of the Taskbar on the screen
+        /// </summary>
         public double XPosition
         {
             get => _xPosition;
@@ -319,7 +335,7 @@ namespace TaskBar.ViewModels
             set
             {
                 Color bc = value.Color;
-                bc.A=(byte)App.Config.Transparency;
+                bc.A=(byte)App.Configuration.Transparency;
                 value.Color = bc;
 
                 if (value != _backgroundColor) {
@@ -344,6 +360,9 @@ namespace TaskBar.ViewModels
             }
         }
 
+        /// <summary>
+        /// The Accent Color of the TaskBar (highlight color for the bar under opened programs)
+        /// </summary>
         public SolidColorBrush AccentColor
         {
             get => _accentColor;
@@ -357,7 +376,7 @@ namespace TaskBar.ViewModels
                 }
             }
         }
-
+        /*
         public WindowState BarWindowState
         {
             get => _barWindowState; set
@@ -368,17 +387,20 @@ namespace TaskBar.ViewModels
                     OnPropertyChanged(nameof(BarWindowState));
                 }
             }
-        }
+        }*/
 
-        public Orientation BarOrientation
+        /// <summary>
+        /// Orientation of the TaskBar
+        /// </summary>
+        public Orientation Orientation
         {
-            get => _barOrientation;
+            get => _orientation;
             set
             {
-                if (_barOrientation != value)
+                if (_orientation != value)
                 {
-                    _barOrientation = value;
-                    OnPropertyChanged(nameof(BarOrientation));
+                    _orientation = value;
+                    OnPropertyChanged(nameof(Orientation));
                 }
             }
         }
@@ -399,6 +421,9 @@ namespace TaskBar.ViewModels
             }
         }
 
+        /// <summary>
+        /// Context Menu Lock/Unlock entry Text
+        /// </summary>
         public string LockUnlockText
         {
             get => _lockUnlockText;
@@ -411,6 +436,10 @@ namespace TaskBar.ViewModels
                 }
             }
         }
+
+        /// <summary>
+        /// Context Menu Dock/Undock entry Text
+        /// </summary>
         public string DockUndockText
         {
             get => _dockUndockText;
@@ -424,7 +453,9 @@ namespace TaskBar.ViewModels
             }
         }
         
-
+        /// <summary>
+        /// OnTop Property of the TaskBar
+        /// </summary>
         public bool IsOnTop
         {
             get => _isOnTop;
@@ -442,8 +473,10 @@ namespace TaskBar.ViewModels
 
         #region Private Commands
 
-       /* private ICommand _hideTaskBarCommand;
-        private ICommand _showTaskBarcommand;*/
+        /*future features
+        private ICommand _hideTaskBarCommand;
+        private ICommand _showTaskBarcommand;
+        */
         private ICommand _barMouseLeftButtonDownCommand;
         private ICommand _barChangeLocationCommand;
         private ICommand _barChangeOrientationCommand;
@@ -459,6 +492,7 @@ namespace TaskBar.ViewModels
 
         #region Public Commands
 
+        /* future features
         /// <summary>
         /// The command to hide the TaskBar
         /// </summary>
@@ -468,21 +502,13 @@ namespace TaskBar.ViewModels
         /// The command to Show the TaskBar
         /// </summary>
         public ICommand ShowTaskBarcommand { get; set; }
+        
 
         /// <summary>
         /// The command to expand the TaskBar to full display width
         /// </summary>
         public ICommand MaximizeTaskBarCommand { get; set; }
-
-        /// <summary>
-        /// The command to close the TaskBar
-        /// </summary>
-        public ICommand CloseCommand { get; set; }
-
-        /// <summary>
-        /// The command to show the menu of the TaskBar
-        /// </summary>
-        public ICommand MenuCommand { get; set; }
+        */
 
         /// <summary>
         /// The command that handles the left mouse bottom down event
@@ -499,7 +525,7 @@ namespace TaskBar.ViewModels
         /// <summary>
         /// The command that changes the location of the TaskBar
         /// </summary>
-        public ICommand BarChangeLocationCommand
+        public ICommand ChangeLocationCommand
         {
             get
             {
@@ -511,7 +537,7 @@ namespace TaskBar.ViewModels
         /// <summary>
         /// The command that changes the orientation of the TaskBar
         /// </summary>
-        public ICommand BarChangeOrientationCommand
+        public ICommand ChangeOrientationCommand
         {
             get
             {
@@ -532,7 +558,7 @@ namespace TaskBar.ViewModels
         }
 
         /// <summary>
-        /// The command to set Topmost to true
+        /// The command to set OnTop Property to true
         /// </summary>
         public ICommand TopMostCheckedCommand
         {
@@ -556,7 +582,7 @@ namespace TaskBar.ViewModels
         /// <summary>
         /// The command that locks and unlocks the TaskBar position
         /// </summary>
-        public ICommand BarLockUnlockCommand
+        public ICommand LockUnlockCommand
         {
             get
             {
@@ -567,14 +593,13 @@ namespace TaskBar.ViewModels
         /// <summary>
         /// The command that docks and undocks the TaskBar
         /// </summary>
-        public ICommand BarDockUndockCommand
+        public ICommand DockUndockCommand
         {
             get
             {
                 return _barDockUndockCommand ?? (_barDockUndockCommand = new RelayCommand<object>(x => { DockUndockBar((string)x); }));
             }
-        }
-        
+        }        
 
         /// <summary>
         /// The commands that handles the Onloaded event of the TaskBar
@@ -629,7 +654,7 @@ namespace TaskBar.ViewModels
         /// <param name="args"> The new Orientation </param>
         private void BarChangeOrientation(Orientation args)
         {
-            BarOrientation = args;
+            Orientation = args;
         }
 
         /// <summary>
@@ -682,7 +707,7 @@ namespace TaskBar.ViewModels
         }
 
         /// <summary>
-        /// Locks or unlocks the TaskBar
+        /// Locks and unlocks the TaskBar
         /// </summary>
         private void LockUnlockBar()
         {
@@ -699,7 +724,7 @@ namespace TaskBar.ViewModels
         }
 
         /// <summary>
-        /// Docks or Undocks the TaskBar
+        /// Docks and undocks the TaskBar
         /// </summary>
         private void DockUndockBar(string action)
         {
@@ -761,6 +786,9 @@ namespace TaskBar.ViewModels
                 IsOnTop = false;
         }
         
+        /// <summary>
+        /// Updates the Accent Color for each item docked in the TaskBar
+        /// </summary>
         private void UpdateAccentColor()
         {
             foreach(ItemViewModel vm in Items)

@@ -72,7 +72,7 @@ namespace Configurator.ViewModels
         #region Public Commands
 
         public ICommand SaveCommand =>  _saveCommand ??
-                                        (_saveCommand = new RelayCommand<object>((x) => Config.SaveConfiguration(App.Instance)));
+                                        (_saveCommand = new RelayCommand<object>((x) => Config.SaveConfiguration(App.Configuration)));
 
         public ICommand ReloadCommand => _reloadCommand ??
                                         (_reloadCommand = new RelayCommand<object>((x) => LoadConfiguration()));
@@ -82,8 +82,8 @@ namespace Configurator.ViewModels
         #region methods
         private void LoadConfiguration()
         {
-            App.Instance = Config.ReadConfiguration();
-            ImageSource = App.Instance.CustomIcons[0];
+            App.Configuration = Config.ReadConfiguration();
+            ImageSource = App.Configuration.CustomIcons[0];
         }
         #endregion
     }

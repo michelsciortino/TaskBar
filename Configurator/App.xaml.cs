@@ -8,13 +8,13 @@ namespace Configurator
     /// </summary>
     public partial class App : Application
     {
-        public static Config Instance = null;
+        public static Config Configuration = null;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            Instance = Config.ReadConfiguration();
+            Configuration = Config.ReadConfiguration();
             MainWindow Configurator = new MainWindow();
 
             //Showing the main window

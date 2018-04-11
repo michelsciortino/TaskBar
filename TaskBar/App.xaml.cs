@@ -9,12 +9,9 @@ using TaskBar.Helpers;
 
 namespace TaskBar
 {
-    /// <summary>
-    /// Logica di interazione per App.xaml
-    /// </summary>
-    public partial class App : Application
+    public partial class App : Application 
     {
-        public static Config Config = null;
+        public static Config Configuration = null;
         private IntPtr hwnd;
         private HwndSource hsource;
 
@@ -22,7 +19,8 @@ namespace TaskBar
         {
             base.OnStartup(e);
 
-            Config=Config.ReadConfiguration();
+            //Loading configuration
+            Configuration=Config.ReadConfiguration();
             
             MainWindow TaskBar = new MainWindow();
             TaskBar.SourceInitialized += TaskBar_SourceInitialized;
@@ -31,26 +29,42 @@ namespace TaskBar
             TaskBar.Show();
         }
 
+        /// <summary>
+        /// Gets a Handle for the current window and adds a hook for listening to Windows Messages
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TaskBar_SourceInitialized(object sender, EventArgs e)
         {
+            //Getting a Handle for this window
             if ((hwnd = new WindowInteropHelper((Window)sender).Handle) == IntPtr.Zero)
             {
                 throw new InvalidOperationException("Could not get window handle.");
             }
             hsource = HwndSource.FromHwnd(hwnd);
+
+            //Adding a Hook to the window handle's source
             hsource.AddHook(WndProc);
         }
 
+        /// <summary>
+        /// Implementation of the WinProc procedure for listening to Windows Messages
+        /// </summary>
+        /// <param name="hwnd">The window's Handle</param>
+        /// <param name="msg">The received message</param>
+        /// <param name="wParam">A param of the message</param>
+        /// <param name="lParam">A param of the message</param>
         public IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             switch (msg)
             {
+                //If Windows theme color has changed
                 case (int)WindowMessage.WM_DWMCOLORIZATIONCOLORCHANGED:
-                    if(Config.BackgroundAsSysColor)
+                    if(Configuration.BackgroundAsSysColor) //updating TaskBar background
                         ((MainWindowViewModel)MainWindow.DataContext).BackgroundColor =
                             new SolidColorBrush(ColorsHelper.ColorFromHex(
                                 Core.WinApi.NativeMethods.GetWindowColorizationColor(true)));
-                    if (Config.AccentAsSysColor)
+                    if (Configuration.AccentAsSysColor) //updating AccentColor
                         ((MainWindowViewModel)MainWindow.DataContext).AccentColor =
                             new SolidColorBrush(ColorsHelper.ColorFromHex(
                                 Core.WinApi.NativeMethods.GetWindowColorizationColor(true)));
