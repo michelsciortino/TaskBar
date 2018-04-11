@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Windows.Media.Imaging;
 using TaskBar.Core.Helpers;
 
@@ -12,7 +11,7 @@ namespace TaskBar.Core.Models
     public class Config
     {
         #region static variables
-        
+
         public static BitmapImage UnknownImageSource_24x24 = new BitmapImage(UriHelper.GetUri(null, "Images/Unknown_24x24.png"));
         public static BitmapImage UnknownImageSource_32x32 = new BitmapImage(UriHelper.GetUri(null, "Images/Unknown_32x32.png"));
         public static BitmapImage UnknownImageSource_44x44 = new BitmapImage(UriHelper.GetUri(null, "Images/Unknown_44x44.png"));
@@ -27,30 +26,44 @@ namespace TaskBar.Core.Models
         /// Default configuration filename
         /// </summary>
         private const string ConfigFilename = ".configuration";
-
+        public const string DefaultBackgroundColor = "#80000000";
+        public const string DefaultBorderColor = "#00000000";
+        public const string DefaultAccentColor = "#ffffffff";// WinApi.NativeMethods.GetWindowColorizationColor(true);
+        public const string DefaultTextColor = "#ffffff";
         #endregion
 
         #region Public Properties
 
-            #region Theme
-                #region Colors
-                public string BackgroundColor;
-                public string BorderColor;
-                public string AccentColor;
-                public string TextColor;
-                public bool Transparency;
-                #endregion
-                #region Sizes
-                public double IconSize;
-                public double IconsSpacing;
-                public double HorizontalPadding;
-                public double VerticalPadding;
+        #region Theme
+        #region Colors
+        public string BackgroundColor { get; set; }
+        public string BorderColor { get; set; } 
+        public string AccentColor { get; set; }
+        public string TextColor { get; set; }
+        public int Transparency { get; set; } = 128;
+        public bool BackgroundAsSysColor { get; set; } = true;
+        public bool AccentAsSysColor { get; set; } = true;
+        #endregion
+        #region Sizes
+        public double IconSize { get; set; }
+        public double IconsSpacing { get; set; }
+        public double HorizontalPadding { get; set; }
+        public double VerticalPadding { get; set; }
         #endregion
         #endregion
+
         #region Behaviors
-        public bool OnTop;
-        public bool Attached;
+
+        public bool OnTop { get; set; } = false;
+        public bool Docked { get; set; } = false;
+        public int Position { get; set; } = (int)WinApi.ShellApi.AppBarDockPosition.Float;
+        public bool AutoHide { get; set; } = false;
+        public bool Locked { get; set; } = false;
+        public bool EdgeMagnet { get; set; } = false;
+        public bool DockUnpinnedPrograms { get; set; } = false;
+
         #endregion
+
         #region PinnedItems
         /// <summary>
         /// List of programs saved in the configuration
@@ -58,18 +71,13 @@ namespace TaskBar.Core.Models
         public List<Program> Programs;
 
         #endregion
+
         #region CustomIcons
         /// <summary>
         /// List of custom icons
         /// </summary>
         public List<BitmapImage> CustomIcons;
         #endregion
-
-
-
-
-
-
 
         #endregion
 
@@ -79,7 +87,15 @@ namespace TaskBar.Core.Models
         /// </summary>
         /// <param name="pList"> List of programs </param>
         /// <param name="customIconList"> List of custom icons </param>
-        public Config(List<Program> pList = null,List<BitmapImage> customIconList = null)
+        public Config(List<Program> pList = null,
+            List<BitmapImage> customIconList = null,
+            string backgroundColor = DefaultBackgroundColor,
+            string borderColor= DefaultBorderColor,
+            string accentColor=DefaultBorderColor,
+            string textColor=DefaultTextColor,
+            int transparency =128,
+            bool backgroundAsSysColor=false,
+            bool accentAsSysColor=true)
         {
             if (pList != null)
                 Programs = new List<Program>(pList);
@@ -89,6 +105,20 @@ namespace TaskBar.Core.Models
                 CustomIcons = new List<BitmapImage>(customIconList);
             else
                 CustomIcons = new List<BitmapImage>();
+            BackgroundColor = backgroundColor;
+            BorderColor = borderColor;
+            if(accentAsSysColor)
+                AccentColor= WinApi.NativeMethods.GetWindowColorizationColor(true);
+            else
+                AccentColor = accentColor;
+            TextColor = textColor;
+            BackgroundAsSysColor = backgroundAsSysColor;
+            AccentAsSysColor = accentAsSysColor;
+            if (transparency > 255)
+                transparency = 255;
+            if (transparency < 0)
+                transparency = 0;
+            Transparency = transparency;
         }
 
         #endregion
@@ -103,15 +133,16 @@ namespace TaskBar.Core.Models
         public static Config ReadConfiguration()
         {
             Config newConfig = null;
-            
+
             try
             {
-                SerializableConfig serializable= Helpers.Serializer.DeserializeObj<SerializableConfig>($"{WorkingDirectoryPath}{ConfigFilename}");
+                SerializableConfig serializable = Serializer.DeserializeObj<SerializableConfig>($"{WorkingDirectoryPath}{ConfigFilename}");
                 newConfig = serializable.Deserialize();
             }
             catch
             {
-                return null;
+                // No config file found
+                newConfig = new Config();
             }
 
             return newConfig;
@@ -127,7 +158,7 @@ namespace TaskBar.Core.Models
             try
             {
                 SerializableConfig serializable = new SerializableConfig(config);
-                Helpers.Serializer.SerializeObj<SerializableConfig>(serializable, $"{WorkingDirectoryPath}{ConfigFilename}");
+                Serializer.SerializeObj(serializable, $"{WorkingDirectoryPath}{ConfigFilename}");
             }
             catch
             {
@@ -136,77 +167,72 @@ namespace TaskBar.Core.Models
             return true;
         }
 
-        /// <summary>
-        /// Loads an Empty Configuration
-        /// </summary>
-        public static Config GetDefaultConfiguration()
-        {
-            List<BitmapImage> list = new List<BitmapImage>
-            {
-                UnknownImageSource_16x16,
-                UnknownImageSource_16x16,
-                UnknownImageSource_16x16,
-                UnknownImageSource_16x16
-            };
-            return new Config(null, list);
-        }
+        #endregion
 
-        #endregion        
+        #region Helpers
+
+
+
+        #endregion
     }
 
     [Serializable]
     public class SerializableConfig
-    {
-        List<byte[]> CustomIcons;
-        List<Program> Programs;
+    {        
+        string BackgroundColor,BorderColor,AccentColor,TextColor;
+        public int Transparency;
+        public bool BackgroundAsSysColor, AccentAsSysColor;
+        public double IconSize, IconsSpacing, HorizontalPadding, VerticalPadding;
+        public bool OnTop, Docked, AutoHide, Locked, EdgeMagnet, DockUnpinnedPrograms;
+        public int Position;
+        List<SerializableProgram> Programs;
+        List<SerializableBitmapImage> CustomIcons;
 
         public SerializableConfig(Config config)
         {
-            Programs = new List<Program>(config.Programs);
-            CustomIcons = new List<byte[]>();
+            Programs = new List<SerializableProgram>();
+            foreach (Program p in config.Programs)
+            {
+                Programs.Add(new SerializableProgram(p));
+            }
+
+            CustomIcons = new List<SerializableBitmapImage>();
             foreach (BitmapImage img in config.CustomIcons)
             {
-                CustomIcons.Add(BitmapImageToBytes(img));
+                CustomIcons.Add(new SerializableBitmapImage(img));
             }
+            BackgroundColor = config.BackgroundColor;
+            BorderColor = config.BorderColor;
+            AccentColor = config.AccentColor;
+            TextColor = config.TextColor;
+            Transparency = config.Transparency;
+            BackgroundAsSysColor = config.BackgroundAsSysColor;
+            AccentAsSysColor = config.AccentAsSysColor;
+            IconSize = config.IconSize;
+            IconsSpacing = config.IconsSpacing;
+            HorizontalPadding = config.HorizontalPadding;
+            VerticalPadding = config.VerticalPadding;
+            OnTop = config.OnTop;
+            Docked = config.Docked;
+            AutoHide = config.AutoHide;
+            Locked = config.Locked;
+            EdgeMagnet = config.EdgeMagnet;
+            DockUnpinnedPrograms = config.DockUnpinnedPrograms;
+            Position = config.Position;
         }
 
         public Config Deserialize()
         {
-            List<Program> programs = new List<Program>(this.Programs);
+            List<Program> programs = new List<Program>();
             List<BitmapImage> customIcons = new List<BitmapImage>();
 
-            foreach (byte[] bytes in this.CustomIcons)
-                customIcons.Add(BytesToBitmapImage(bytes));
-
-            return new Config(programs, customIcons);
-        }
-
-        public static byte[] BitmapImageToBytes(BitmapImage bitmapImage)
-        {
-            using (MemoryStream ms = new MemoryStream())
+            foreach (SerializableProgram sp in Programs)
             {
-                PngBitmapEncoder encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(bitmapImage.UriSource));
-                encoder.Save(ms);
-                return ms.ToArray();
+                programs.Add(sp.Deserialize());
             }
-        }
-
-        public static BitmapImage BytesToBitmapImage(byte[] imageBytes)
-        {
-            BitmapImage image;
-            using (MemoryStream ms = new MemoryStream(imageBytes))
-            {
-                image = new BitmapImage();
-                image.BeginInit();
-                image.StreamSource = ms;
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.EndInit();
-                image.Freeze();
-            }
-            return image;
+            foreach (SerializableBitmapImage sbi in this.CustomIcons)
+                customIcons.Add(sbi.Deserialize());
+            return new Config(programs, customIcons,BackgroundColor,BorderColor,AccentColor,TextColor,Transparency,BackgroundAsSysColor,AccentAsSysColor);
         }
     }
-
-
 }
