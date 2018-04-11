@@ -50,9 +50,11 @@
   <ItemGroup>
     <Compile Include="AppBar\AppBarFunctionalities.cs" />
     <Compile Include="AppBar\MonitorInfo.cs" />
+    <Compile Include="AppBar\NativeMethods.cs" />
     <Compile Include="AppBar\ShellApi.cs" />
     <Compile Include="Models\Config.cs" />
     <Compile Include="Models\Program.cs" />
+    <Compile Include="Models\SerializableBitmapImage.cs" />
     <Compile Include="Models\Serializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UriHelper.cs" />

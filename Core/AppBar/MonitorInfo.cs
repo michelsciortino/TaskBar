@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows;
+using static TaskBar.Core.WinApi.NativeMethods;
 using static TaskBar.Core.WinApi.ShellApi;
 
 namespace TaskBar.Core.WinApi

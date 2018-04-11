@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Windows.Threading;
 using System.Runtime.InteropServices;
+using static TaskBar.Core.WinApi.NativeMethods;
 using static TaskBar.Core.WinApi.ShellApi;
 
 namespace TaskBar.Core
@@ -59,6 +60,7 @@ namespace TaskBar.Core
                     AppBarSetPos();
                     handled = true;
                 }
+                
             }
             return IntPtr.Zero;
         }
